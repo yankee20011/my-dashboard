@@ -1,0 +1,57 @@
+body {
+  background: #000;
+}
+
+.login {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+
+    input {
+      margin-bottom: 1rem;
+      font-size: large;
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.register {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+
+    input {
+      margin-bottom: 1rem;
+      font-size: large;
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}
