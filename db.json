@@ -6,14 +6,97 @@
       "author": "typicode"
     }
   ],
-  "comments": [
+  "users": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "Iulian",
+      "secondName": "Banilean",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:45:47.054Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:49:29.361Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:50:12.988Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:50:14.145Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:50:14.710Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:50:15.098Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:54:05.645Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:54:07.593Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:54:16.916Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:55:38.838Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:55:50.692Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "2021-07-14T14:56:16.960Z",
+      "name": "Cristi",
+      "secondName": "Ceapa",
+      "email": "ianibanilean@gmail.com",
+      "password": "qwerty"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

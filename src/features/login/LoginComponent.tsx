@@ -10,8 +10,9 @@ const Login = () => {
           <input type="password" placeholder="Password" />
         </div>
         <div className="login__buttons">
-          <button>Sign In</button>
-
+          <Link to="/home">
+            <button>Sign In</button>
+          </Link>
           <Link to="/register">
             <button>Register</button>
           </Link>
