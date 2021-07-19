@@ -6,14 +6,34 @@
       "author": "typicode"
     }
   ],
-  "comments": [
+  "users": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 1626696589338,
+      "name": "test",
+      "secondName": "test",
+      "email": "test@",
+      "password": "test"
+    },
+    {
+      "id": 1626696594618,
+      "name": "test",
+      "secondName": "test",
+      "email": "test@mail.ru",
+      "password": "test"
+    },
+    {
+      "id": 1626696613770,
+      "name": "sasa",
+      "secondName": "sasa",
+      "email": "sasa@sasa.ru",
+      "password": "sasa"
+    },
+    {
+      "id": 162669662575,
+      "name": "14312312",
+      "secondName": "312312",
+      "email": "312321@32131",
+      "password": "123"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
