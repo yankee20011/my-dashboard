@@ -8,95 +8,32 @@
   ],
   "users": [
     {
-      "id": 1,
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
+      "id": 1626696589338,
+      "name": "test",
+      "secondName": "test",
+      "email": "test@",
+      "password": "test"
     },
     {
-      "id": "2021-07-14T14:45:47.054Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
+      "id": 1626696594618,
+      "name": "test",
+      "secondName": "test",
+      "email": "test@mail.ru",
+      "password": "test"
     },
     {
-      "id": "2021-07-14T14:49:29.361Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
+      "id": 1626696613770,
+      "name": "sasa",
+      "secondName": "sasa",
+      "email": "sasa@sasa.ru",
+      "password": "sasa"
     },
     {
-      "id": "2021-07-14T14:50:12.988Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:50:14.145Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:50:14.710Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:50:15.098Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:54:05.645Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:54:07.593Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:54:16.916Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:55:38.838Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:55:50.692Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
-    },
-    {
-      "id": "2021-07-14T14:56:16.960Z",
-      "name": "Cristi",
-      "secondName": "Ceapa",
-      "email": "ianibanilean@gmail.com",
-      "password": "qwerty"
+      "id": 162669662575,
+      "name": "14312312",
+      "secondName": "312312",
+      "email": "312321@32131",
+      "password": "123"
     }
   ]
 }
