@@ -62,7 +62,6 @@ const Register = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
           <input
             type="password"
@@ -83,7 +82,20 @@ const Register = () => {
           <div>Incorect Confirm Password</div>
         ) : null}
         <div className="register__buttons">
-          <button onClick={onRegister}>Register</button>
+          <button
+            disabled={
+              name &&
+              secondName &&
+              email &&
+              password &&
+              password === confirmPassword
+                ? false
+                : true
+            }
+            onClick={onRegister}
+          >
+            Register
+          </button>
           <Link to="/">
             <button>Back to Login</button>
           </Link>

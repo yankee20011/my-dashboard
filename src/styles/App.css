@@ -143,6 +143,7 @@ button {
 
 .user-table th {
   padding: 1rem;
+  border: 1px solid #929292;
 }
 
 .user-table td {
@@ -151,16 +152,11 @@ button {
 }
 
 .user-table__buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  grid-gap: 1rem;
+  text-align: center;
 }
 
 .user-table__buttons button {
   cursor: pointer;
+  margin-left: 1rem;
 }
 /*# sourceMappingURL=App.css.map */

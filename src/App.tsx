@@ -13,12 +13,13 @@ import { UsersType } from "./types/UsersType";
 
 function App() {
   const [user, setUser] = useState<UsersType | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, userId, setUserId }}>
       <Router>
         <Switch>
-          <Route path="/" exact component={Login} />
+          <Route exact path="/" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" component={Home} />
         </Switch>

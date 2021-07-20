@@ -106,6 +106,7 @@ button {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   th {
     padding: 1rem;
+    border: 1px solid rgb(146, 146, 146);
   }
   td {
     border: 1px solid rgb(146, 146, 146);
@@ -113,12 +114,11 @@ button {
   }
 
   &__buttons {
-    display: flex;
-    justify-content: center;
-    grid-gap: 1rem;
+    text-align: center;
 
     button {
       cursor: pointer;
+      margin-left: 1rem;
     }
   }
 }

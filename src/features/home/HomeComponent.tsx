@@ -6,10 +6,11 @@ import UsersComponent from "./pages/UserComponent";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 
 import ButtonEdit from "../../components/buttons/ButtonEdit";
-import FormUserAdd from "../../components/forms/FormUserAddEdit";
+import FormUserAddEdit from "../../components/forms/FormUserAddEdit";
 
 const Home = () => {
-  const { setUser, user } = useGlobalContext();
+  const { setUser, user, userId } = useGlobalContext();
+  console.log(user);
   let { path, url } = useRouteMatch();
 
   const signOut = () => {
@@ -39,9 +40,18 @@ const Home = () => {
                 <h2>Welcome page</h2>
               </div>
             </Route>
-            <Route path={`${path}/user`} component={UsersComponent} />
-            <Route path={`${path}/posts`} component={PostsComponent} />
-            <Route path={`${path}/user/add`} component={FormUserAdd} />
+            <Route exact path={`${path}/user`} component={UsersComponent} />
+            <Route exact path={`${path}/posts`} component={PostsComponent} />
+            <Route
+              exact
+              path={`${path}/user/add`}
+              component={FormUserAddEdit}
+            />
+            <Route
+              exact
+              path={`${path}/user/${userId?.toString()}/edit`}
+              component={FormUserAddEdit}
+            />
           </Switch>
         </section>
       </div>
