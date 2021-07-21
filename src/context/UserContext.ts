@@ -7,6 +7,8 @@ export interface UserContent {
   setUser: Dispatch<UsersType | null>;
   userId: number | null;
   setUserId: Dispatch<number | null>;
+  showModal: boolean;
+  setShowModal: Dispatch<boolean>;
 }
 
 export const UserContext = createContext<UserContent>({
@@ -14,4 +16,6 @@ export const UserContext = createContext<UserContent>({
   setUserId: () => {},
   user: null,
   userId: null,
+  showModal: false,
+  setShowModal: () => {},
 });

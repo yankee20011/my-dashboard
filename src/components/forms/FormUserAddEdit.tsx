@@ -18,12 +18,12 @@ const Register = () => {
   const { url } = useRouteMatch();
   const { userId } = useGlobalContext();
 
-  // const mutation = useMutation((newUser: UsersType) =>
-  //   axios.post("http://localhost:3000/users ", newUser)
-  // );
-  const { mutate, isLoading, isError, error } = useMutation(
-    (newUser: UsersType) =>
-      axios.patch(`http://localhost:3000/users/${userId} `, newUser)
+  const { mutate: addUser } = useMutation((newUser: UsersType) =>
+    axios.post("http://localhost:3000/users ", newUser)
+  );
+
+  const { mutate: editUser } = useMutation((newUser: UsersType) =>
+    axios.patch(`http://localhost:3000/users/${userId} `, newUser)
   );
 
   const onRegister = () => {
@@ -34,7 +34,7 @@ const Register = () => {
       password &&
       password === confirmPassword
     ) {
-      mutate({
+      addUser({
         id: new Date().getTime(),
         name: name,
         secondName: secondName,
@@ -55,7 +55,7 @@ const Register = () => {
       password &&
       password === confirmPassword
     ) {
-      mutate({
+      editUser({
         id: new Date().getTime(),
         name: name,
         secondName: secondName,

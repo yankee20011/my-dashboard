@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
 
@@ -10,17 +10,18 @@ import ButtonEdit from "../../../components/buttons/ButtonEdit";
 
 const User = () => {
   const { setUserId } = useGlobalContext();
+  const queryClient = useQueryClient();
 
   const { data } = useQuery("users", fetchUsers);
-  const queryClient = useQueryClient();
 
   let { url } = useRouteMatch();
 
-  queryClient.invalidateQueries();
-
-  const deleteUser = (id: number) => {
-    axios.delete(`http://localhost:3000/users/${id}`);
-  };
+  const { mutate: deleteUser } = useMutation(
+    (id: number) => axios.delete(`http://localhost:3000/users/${id}`),
+    {
+      onSuccess: () => queryClient.invalidateQueries(),
+    }
+  );
 
   return (
     <>

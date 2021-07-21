@@ -14,9 +14,12 @@ import { UsersType } from "./types/UsersType";
 function App() {
   const [user, setUser] = useState<UsersType | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
-    <UserContext.Provider value={{ user, setUser, userId, setUserId }}>
+    <UserContext.Provider
+      value={{ user, setUser, userId, setUserId, showModal, setShowModal }}
+    >
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />

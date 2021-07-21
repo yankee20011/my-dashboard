@@ -10,7 +10,6 @@ import FormUserAddEdit from "../../components/forms/FormUserAddEdit";
 
 const Home = () => {
   const { setUser, user, userId } = useGlobalContext();
-  console.log(user);
   let { path, url } = useRouteMatch();
 
   const signOut = () => {

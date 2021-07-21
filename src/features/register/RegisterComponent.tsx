@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios from "axios";
@@ -48,14 +48,12 @@ const Register = () => {
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
           />
           <input
             type="text"
             placeholder="Second Name"
             value={secondName}
             onChange={(e) => setSecondName(e.target.value)}
-            required
           />
           <input
             type="email"
@@ -68,34 +66,34 @@ const Register = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <input
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
           />
         </div>
         {isConfirmPassword === false ? (
           <div>Incorect Confirm Password</div>
         ) : null}
         <div className="register__buttons">
-          <button
-            disabled={
-              name &&
-              secondName &&
-              email &&
-              password &&
-              password === confirmPassword
-                ? false
-                : true
-            }
-            onClick={onRegister}
-          >
-            Register
-          </button>
+          <Link to="/">
+            <button
+              disabled={
+                name &&
+                secondName &&
+                email &&
+                password &&
+                password === confirmPassword
+                  ? false
+                  : true
+              }
+              onClick={onRegister}
+            >
+              Register
+            </button>
+          </Link>
           <Link to="/">
             <button>Back to Login</button>
           </Link>
