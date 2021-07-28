@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
-import { fetchPosts } from "../../../api/fetchPosts";
-import { PostType } from "../../../types/PostsType";
-import ButtonDelete from "../../../components/buttons/ButtonDelete";
-import ButtonEdit from "../../../components/buttons/ButtonEdit";
-import ModalEditAdd from "../../../components/modal/ModalEditAdd";
-import { useGlobalContext } from "../../../hooks/useGlobalContext";
-import Loading from "../../../components/loading/Loading";
+import ModalEditAdd from "./ModalEditAdd";
+
+import { fetchPosts } from "../../api/fetchPosts";
+import { PostType } from "../../types/PostsType";
+import { useGlobalContext } from "../../hooks/useGlobalContext";
+
+import { Button, Loading } from "../../components/index";
 
 const PostsComponent: React.FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
@@ -33,13 +33,14 @@ const PostsComponent: React.FC = () => {
       ) : (
         <>
           <div className="posts__add-post">
-            <ButtonEdit
+            <Button
+              className="button-edit edit"
               onClick={() => {
                 setShowModal(true);
               }}
             >
               Add New Post
-            </ButtonEdit>
+            </Button>
           </div>
           <div className="posts__container">
             {data.length
@@ -61,18 +62,22 @@ const PostsComponent: React.FC = () => {
                       <p className="posts__description">{item.description}</p>
                       <div className="posts__buttons">
                         <div>
-                          <ButtonEdit
+                          <Button
+                            className="button-edit edit"
                             onClick={() => {
                               setShowModal(true);
                               setPost(item);
                             }}
                           >
                             Edit
-                          </ButtonEdit>
+                          </Button>
                         </div>
-                        <ButtonDelete onClick={() => deletePost(item.id!)}>
+                        <Button
+                          className="button-delete delete"
+                          onClick={() => deletePost(item.id!)}
+                        >
                           Delete
-                        </ButtonDelete>
+                        </Button>
                       </div>
                     </div>
                   );

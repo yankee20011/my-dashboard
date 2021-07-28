@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
-import Loading from "../loading/Loading";
-
 import { UsersType } from "../../types/UsersType";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 
-const FormUser = () => {
+import { Loading } from "../../components/index";
+
+const FormUserAddEdit = () => {
   const [name, setName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [email, setEmail] = useState("");
@@ -74,12 +74,6 @@ const FormUser = () => {
     }
   };
 
-  // const onInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e);
-
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // };
-
   return (
     <section className="register center-register-login">
       {isFetching ? (
@@ -142,4 +136,4 @@ const FormUser = () => {
   );
 };
 
-export default FormUser;
+export default FormUserAddEdit;

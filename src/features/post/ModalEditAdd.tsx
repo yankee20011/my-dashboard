@@ -2,9 +2,10 @@ import React, { Dispatch, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-import ButtonDelete from "../buttons/ButtonDelete";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 import { PostType } from "../../types/PostsType";
+
+import { Button } from "../../components/index";
 
 interface Props {
   post: PostType | null;
@@ -118,14 +119,15 @@ const ModalEditAdd = ({ post, setPost }: Props) => {
           </form>
         </div>
         <div className="modal__footer">
-          <ButtonDelete
+          <Button
+            className="button-delete delete"
             onClick={() => {
               setPost(null);
               setShowModal(false);
             }}
           >
             Close
-          </ButtonDelete>
+          </Button>
           <button onClick={ifEditPost}>{post ? "Edit" : "Add"}</button>
         </div>
       </div>

@@ -1,14 +1,14 @@
 import { Switch, Route, Link, useRouteMatch, Redirect } from "react-router-dom";
 
-import PostsComponent from "./pages/PostsComponent";
-import UsersComponent from "./pages/UserComponent";
+import PostsComponent from "../post/PostsComponent";
+import UsersComponent from "../user/UserComponent";
+import FormUserAddEdit from "../user/FormUserAddEdit";
 
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 
-import FormUserAddEdit from "../../components/forms/FormUserAddEdit";
-import ButtonDelete from "../../components/buttons/ButtonDelete";
+import { Button } from "../../components/index";
 
-const Home = () => {
+const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
   let { path, url } = useRouteMatch();
 
@@ -25,7 +25,9 @@ const Home = () => {
               <div className="home__user">
                 {user.name + " " + user.secondName}
               </div>
-              <ButtonDelete onClick={signOut}>Sign Out</ButtonDelete>
+              <Button className="button-delete delete" onClick={signOut}>
+                Sign Out
+              </Button>
             </div>
             <ul className="home__link-container">
               <hr />
@@ -66,4 +68,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeComponent;

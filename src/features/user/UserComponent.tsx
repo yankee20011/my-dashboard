@@ -2,14 +2,13 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Link, useRouteMatch, Redirect } from "react-router-dom";
 import axios from "axios";
 
-import { useGlobalContext } from "../../../hooks/useGlobalContext";
-import { fetchUsers } from "../../../api/fetchUsers";
-import { UsersType } from "../../../types/UsersType";
-import ButtonDelete from "../../../components/buttons/ButtonDelete";
-import ButtonEdit from "../../../components/buttons/ButtonEdit";
-import Loading from "../../../components/loading/Loading";
+import { useGlobalContext } from "../../hooks/useGlobalContext";
+import { fetchUsers } from "../../api/fetchUsers";
+import { UsersType } from "../../types/UsersType";
 
-const User = () => {
+import { Button, Loading } from "../../components/index";
+
+const UserComponent = () => {
   const { setUserId } = useGlobalContext();
   const queryClient = useQueryClient();
 
@@ -37,7 +36,7 @@ const User = () => {
                 <th>Username</th>
                 <th>
                   <Link to={`${url}/add`}>
-                    <ButtonEdit>Add User</ButtonEdit>
+                    <Button className="button-edit edit">Add User</Button>
                   </Link>
                 </th>
               </tr>
@@ -51,13 +50,19 @@ const User = () => {
                     <td>
                       <div className="user-table__buttons">
                         <Link to={`${url}/${item.id}/edit`}>
-                          <ButtonEdit onClick={() => setUserId(item.id)}>
+                          <Button
+                            className="button-edit edit"
+                            onClick={() => setUserId(item.id)}
+                          >
                             Edit
-                          </ButtonEdit>
+                          </Button>
                         </Link>
-                        <ButtonDelete onClick={() => deleteUser(item.id)}>
+                        <Button
+                          className="button-delete delete"
+                          onClick={() => deleteUser(item.id)}
+                        >
                           Delete
-                        </ButtonDelete>
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -72,4 +77,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserComponent;

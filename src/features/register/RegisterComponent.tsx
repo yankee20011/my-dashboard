@@ -18,14 +18,11 @@ const Register = () => {
     axios.post("http://localhost:3000/users ", newUser)
   );
 
+  const registerVerification =
+    name && secondName && email && password && password === confirmPassword;
+
   const onRegister = () => {
-    if (
-      name &&
-      secondName &&
-      email &&
-      password &&
-      password === confirmPassword
-    ) {
+    if (registerVerification) {
       mutation.mutate({
         id: new Date().getTime(),
         name: name,
@@ -80,15 +77,7 @@ const Register = () => {
         <div className="register__buttons">
           <Link to="/">
             <button
-              disabled={
-                name &&
-                secondName &&
-                email &&
-                password &&
-                password === confirmPassword
-                  ? false
-                  : true
-              }
+              disabled={registerVerification ? false : true}
               onClick={onRegister}
             >
               Register
