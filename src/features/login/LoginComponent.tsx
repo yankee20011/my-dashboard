@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -15,19 +15,6 @@ const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   console.log(isPassword);
-
-  // useEffect(() => {
-  //   if (isValidUser) {
-  //     setIsVisible(false);
-  //     return;
-  //   }
-  //   setIsValidUser(null);
-  //   setIsVisible(true);
-  //   const timer = setTimeout(() => {
-  //     setIsVisible(false);
-  //   }, 1500);
-  //   return () => clearTimeout(timer);
-  // }, [isValidUser]);
 
   const { setUser } = useGlobalContext();
 
