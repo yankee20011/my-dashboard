@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
@@ -8,12 +8,14 @@ import ButtonDelete from "../../../components/buttons/ButtonDelete";
 import ButtonEdit from "../../../components/buttons/ButtonEdit";
 import ModalEditAdd from "../../../components/modal/ModalEditAdd";
 import { useGlobalContext } from "../../../hooks/useGlobalContext";
+import Loading from "../../../components/loading/Loading";
 
-const PostsComponent = () => {
-  const { setShowModal } = useGlobalContext();
+const PostsComponent: React.FC = () => {
+  const [post, setPost] = useState<PostType | null>(null);
 
-  const { data } = useQuery("users", fetchPosts);
-  console.log(data);
+  const { showModal, setShowModal } = useGlobalContext();
+
+  const { data, isFetching } = useQuery("posts", fetchPosts);
 
   const queryClient = useQueryClient();
 
@@ -26,39 +28,61 @@ const PostsComponent = () => {
 
   return (
     <section className="posts">
-      <div className="posts__add-post">
-        <ButtonEdit onClick={() => setShowModal(true)}>Add New Post</ButtonEdit>
-      </div>
-      <div className="posts__container">
-        {data?.map((item: PostType) => {
-          return (
-            <div key={item.id} className="posts__block">
-              <h2 className="posts__title">{item.title}</h2>
-              <div className="posts__date-category-container">
-                <h4 className="posts__category">{item.category}</h4>
-                <p className="posts__date">{item.date}</p>
-              </div>
-              <div className="posts__tags">
-                {item.tags?.map((tag, index) => (
-                  <div key={index}>{tag}</div>
-                ))}
-              </div>
-              <p className="posts__description">{item.description}</p>
-              <div className="posts__buttons">
-                <div>
-                  <ButtonEdit onClick={() => setShowModal(true)}>
-                    Edit
-                  </ButtonEdit>
-                </div>
-                <ButtonDelete onClick={() => deletePost(item.id)}>
-                  Delete
-                </ButtonDelete>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <ModalEditAdd />
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="posts__add-post">
+            <ButtonEdit
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              Add New Post
+            </ButtonEdit>
+          </div>
+          <div className="posts__container">
+            {data.length
+              ? data?.map((item: PostType) => {
+                  const newTags = item?.tags?.split(",");
+
+                  return (
+                    <div key={item.id} className="posts__block">
+                      <h2 className="posts__title">{item.title}</h2>
+                      <div className="posts__date-category-container">
+                        <h4 className="posts__category">{item.category}</h4>
+                        <p className="posts__date">{item.date}</p>
+                      </div>
+                      <div className="posts__tags">
+                        {newTags?.map((tag, index) => (
+                          <div key={index}>{tag}</div>
+                        ))}
+                      </div>
+                      <p className="posts__description">{item.description}</p>
+                      <div className="posts__buttons">
+                        <div>
+                          <ButtonEdit
+                            onClick={() => {
+                              setShowModal(true);
+                              setPost(item);
+                            }}
+                          >
+                            Edit
+                          </ButtonEdit>
+                        </div>
+                        <ButtonDelete onClick={() => deletePost(item.id!)}>
+                          Delete
+                        </ButtonDelete>
+                      </div>
+                    </div>
+                  );
+                })
+              : null}
+          </div>
+        </>
+      )}
+
+      {showModal && <ModalEditAdd post={post} setPost={setPost} />}
     </section>
   );
 };

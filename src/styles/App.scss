@@ -17,40 +17,76 @@ li {
 a {
   text-decoration: none;
 }
+input {
+  all: unset;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 3px;
+}
 button {
   cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  color: #aaaaaa;
+  padding: 0.5rem 0.75rem;
+  letter-spacing: 1px;
+  background: #fff;
+  transition: 300ms;
+
+  &:hover {
+    background: #aaaaaa;
+    color: #ffffff;
+  }
+  &:disabled {
+    color: #ff6d6d;
+    border: 1px solid #ff6d6d;
+    background: #fff;
+
+    &:hover {
+      background: #fff;
+      color: #ff6d6d;
+    }
+  }
 }
 textarea {
+  all: unset;
   resize: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 200px;
   font-size: 16px;
   padding: 5px;
+  border: 1px solid #aaaaaa;
+  border-radius: 3px;
+}
+.center-register-login {
+  padding: 0 120px 0 280px;
 }
 .welcome-page {
+  text-transform: capitalize;
   text-align: center;
 }
-.button-edit {
-  background: rgb(0, 150, 255);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+.button-edit,
+.button-delete {
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  color: #aaaaaa;
   padding: 0.5rem 0.75rem;
   letter-spacing: 1px;
+  background: #fff;
+  transition: 300ms;
+
+  &:hover {
+    background: #aaaaaa;
+    color: #ffffff;
+  }
 }
-.button-delete {
-  background: rgb(210, 4, 45);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 0.75rem;
-  letter-spacing: 4px;
+.edit:hover {
+  background: #78beff;
 }
-.button-edit:hover,
-.button-delete:hover {
-  opacity: 0.75;
-  transition: opacity 300ms;
+.delete:hover {
+  background: #ff6d6d;
 }
 
 .login,
@@ -65,31 +101,44 @@ textarea {
     background: #fff;
     padding: 40px;
     border-radius: 4px;
+    width: 250px;
   }
   &__inputs {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
 
     input {
       margin-bottom: 1rem;
       font-size: large;
     }
   }
+  &__email-error {
+    color: #ff6d6d;
+    text-align: center;
+    margin: 1rem 0;
+  }
   &__buttons {
     display: flex;
     justify-content: space-between;
+    grid-gap: 10px;
 
     button {
-      font-size: 1rem;
       cursor: pointer;
     }
   }
 }
 
 .home {
+  &__user-container {
+    text-align: center;
+  }
+  &__user {
+    text-transform: capitalize;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
   &__sidebar {
-    position: absolute;
+    position: fixed;
     padding: 20px;
     top: 0;
     left: 0;
@@ -99,11 +148,34 @@ textarea {
   }
 
   &__content {
-    padding: 0 120px 0 245px;
+    padding: 0 120px 0 280px;
     margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &__link-container {
+    margin-top: 3rem;
+
+    li {
+      text-align: center;
+      margin: 0.5rem 0;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #aaaaaa;
+      cursor: pointer;
+      &:hover {
+        a {
+          color: #ffffff;
+        }
+        background: #aaaaaa;
+      }
+    }
+    a {
+      color: #aaaaaa;
+      font-size: 18px;
+      transition: 300ms;
+    }
   }
 }
 
@@ -154,15 +226,15 @@ textarea {
     padding: 20px;
   }
   &__title {
+    text-transform: capitalize;
     margin-bottom: 5px;
   }
   &__date {
     font-style: italic;
   }
   &__category {
+    text-transform: capitalize;
     margin-bottom: 10px;
-  }
-  &__description {
   }
   &__date-category-container {
     display: flex;
@@ -203,6 +275,17 @@ textarea {
   justify-content: center;
   align-items: center;
 
+  h4 {
+    color: #aaaaaa;
+    font-size: 16px;
+  }
+
+  &__error {
+    text-align: center;
+    color: #ff6d6d;
+    transition: 300ms;
+    align-content: flex-end;
+  }
   &__content {
     width: 500px;
     max-width: 500px;
@@ -212,13 +295,13 @@ textarea {
   &__form {
     display: flex;
     flex-direction: column;
+    grid-gap: 20px;
 
-    label {
-      font-size: 18px;
-    }
     input {
-      font-size: 16px;
-      padding: 5px;
+      width: 60%;
+      margin: 0 auto;
+      font-size: 18px;
+      text-transform: capitalize;
     }
   }
   &__header {
@@ -232,5 +315,88 @@ textarea {
     padding: 10px;
     display: flex;
     justify-content: space-between;
+  }
+}
+
+// Loading Component
+
+.loader {
+  font-size: 10px;
+  margin: 50px auto;
+  text-indent: -9999em;
+  width: 11em;
+  height: 11em;
+  border-radius: 50%;
+  background: #ffffff;
+  background: -moz-linear-gradient(
+    left,
+    #ffffff 10%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    #ffffff 10%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: -ms-linear-gradient(
+    left,
+    #ffffff 10%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  background: linear-gradient(
+    to right,
+    #ffffff 10%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+
+  &:before {
+    width: 50%;
+    height: 50%;
+    background: #ffffff;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+  }
+  &:after {
+    background: #e5e5e5;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: "";
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

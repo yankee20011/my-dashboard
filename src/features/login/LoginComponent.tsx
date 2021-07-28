@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -11,10 +11,23 @@ import { ToggleType } from "../../types/ToggleType";
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [isUserLogin, setIsUserLogin] = useState<ToggleType>(null);
-  const [isUserPassword, setIsUserPassword] = useState<ToggleType>(null);
-  const [isUserExisting, setIsUser] = useState<ToggleType>(null);
   const [isValidUser, setIsValidUser] = useState<ToggleType>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  console.log(isPassword);
+
+  // useEffect(() => {
+  //   if (isValidUser) {
+  //     setIsVisible(false);
+  //     return;
+  //   }
+  //   setIsValidUser(null);
+  //   setIsVisible(true);
+  //   const timer = setTimeout(() => {
+  //     setIsVisible(false);
+  //   }, 1500);
+  //   return () => clearTimeout(timer);
+  // }, [isValidUser]);
 
   const { setUser } = useGlobalContext();
 
@@ -28,20 +41,23 @@ const Login = () => {
     );
 
     if (findUser) {
-      setIsUser(true);
       if (
         findUser.email === loginEmail &&
         findUser.password === loginPassword
       ) {
         setUser(findUser);
         setIsValidUser(true);
-        setIsUserLogin(true);
-        setIsUserPassword(true);
       } else if (findUser.password !== loginPassword) {
-        setIsUserPassword(false);
+        setIsPassword(true);
+        setTimeout(() => {
+          setIsPassword(false);
+        }, 1500);
       }
     } else if (findUser === undefined) {
-      setIsUser(false);
+      setIsVisible(true);
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 1500);
     }
   };
 
@@ -63,13 +79,8 @@ const Login = () => {
           />
         </div>
         <div className="login__email-error">
-          {isUserExisting === false && <h4>This user doesn't exist</h4>}
-        </div>
-        <div className="login__email-error">
-          {isUserLogin === false && <h4>The email is incorect</h4>}
-        </div>
-        <div className="login__password-error">
-          {isUserPassword === false && <h4>The password is incorect</h4>}
+          {isVisible && <h4>This user doesn't exist</h4>}
+          {isPassword && <h4>Incorect password</h4>}
         </div>
         <div className="login__buttons">
           {isValidUser ? (

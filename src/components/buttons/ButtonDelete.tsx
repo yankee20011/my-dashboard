@@ -5,7 +5,7 @@ const ButtonDelete: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({
   ...rest
 }) => {
   return (
-    <button className="button-delete" {...rest}>
+    <button className="button-delete delete" {...rest}>
       {children}
     </button>
   );

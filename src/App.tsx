@@ -14,11 +14,18 @@ import { UsersType } from "./types/UsersType";
 function App() {
   const [user, setUser] = useState<UsersType | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, userId, setUserId, showModal, setShowModal }}
+      value={{
+        user,
+        setUser,
+        userId,
+        setUserId,
+        showModal,
+        setShowModal,
+      }}
     >
       <Router>
         <Switch>
