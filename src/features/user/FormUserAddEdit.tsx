@@ -41,8 +41,8 @@ const FormUserAddEdit = () => {
     setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
   };
 
-  // const userVerification =
-  //   name && secondName && email && password && password === confirmPassword;
+  const userVerification =
+    user.name && user.secondName && user.email && user.password;
 
   const handleForm = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,7 +90,7 @@ const FormUserAddEdit = () => {
               <button>Back to Users</button>
             </Link>
             <button
-              disabled={false}
+              disabled={userVerification ? false : true}
               style={{ textAlign: "center" }}
               type="submit"
             >

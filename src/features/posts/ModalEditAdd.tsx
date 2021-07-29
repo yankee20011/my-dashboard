@@ -12,11 +12,21 @@ interface Props {
 }
 
 const ModalEditAdd = ({ post, setPost }: Props) => {
-  const [form, setForm] = useState<PostType>(post || {});
-  console.log(post);
+  const [form, setForm] = useState<PostType>(
+    post || {
+      category: "",
+      date: "",
+      description: "",
+      tags: "",
+      title: "",
+    }
+  );
 
   const { setShowModal } = useGlobalContext();
   const queryClient = useQueryClient();
+
+  const postVerification =
+    form.category && form.date && form.description && form.tags && form.title;
 
   const { mutate: editPost } = useMutation(
     (value: PostType | {}) => posts.patch(value, post?.id!),
@@ -103,7 +113,12 @@ const ModalEditAdd = ({ post, setPost }: Props) => {
           >
             Close
           </Button>
-          <button onClick={handlePosts}>Save</button>
+          <button
+            disabled={postVerification ? false : true}
+            onClick={handlePosts}
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

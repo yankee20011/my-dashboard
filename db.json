@@ -2,16 +2,19 @@
   "posts": [
     {
       "id": 1627482229865,
-      "title": "3"
+      "title": "3",
+      "category": "sas",
+      "tags": "sasa",
+      "date": "01:01",
+      "description": "sasa"
     },
     {
-      "id": 1627482243173,
-      "title": "4"
-    },
-    {
-      "id": 1627555678145,
-      "title": "sasa",
-      "category": "sas"
+      "id": 1627564061409,
+      "category": "sasa",
+      "date": "02:02",
+      "description": "3232",
+      "tags": "sasa",
+      "title": "sasa"
     }
   ],
   "users": [
