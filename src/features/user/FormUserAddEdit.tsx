@@ -1,77 +1,52 @@
 import { useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import axios from "axios";
+import { users } from "api/users";
 
-import { UsersType } from "../../types/UsersType";
-import { useGlobalContext } from "../../hooks/useGlobalContext";
-
-import { Loading } from "../../components/index";
+import { UsersType } from "types/UsersType";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { Loading } from "components/index";
 
 const FormUserAddEdit = () => {
-  const [name, setName] = useState("");
-  const [secondName, setSecondName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [user, setUser] = useState<Partial<UsersType>>({
+    name: "",
+    secondName: "",
+    email: "",
+    password: "",
+  });
 
+  const history = useHistory();
   const { url } = useRouteMatch();
   const { userId } = useGlobalContext();
 
-  const { mutate: addUser } = useMutation((newUser: UsersType) =>
-    axios.post("http://localhost:3000/users", newUser)
-  );
+  const mutateFunc = async (value: UsersType | {}) =>
+    url === "/home/user/add"
+      ? users.post(value)
+      : users.patch(value, user?.id!);
 
-  const { mutate: editUser } = useMutation((newUser: UsersType) =>
-    axios.patch(`http://localhost:3000/users/${userId}`, newUser)
-  );
+  const { mutate } = useMutation((value: UsersType | {}) => mutateFunc(value), {
+    onSuccess: () => history.push("/home/user"),
+  });
 
-  const { isFetching } = useQuery(
-    "selectUser",
-    async () => {
-      const { data } = await axios.get(`http://localhost:3000/users/${userId}`);
-      return data;
+  const { isFetching } = useQuery("selectUser", () => users.getUser(userId), {
+    onSuccess: (data) => {
+      setUser({ ...data });
     },
-    {
-      onSuccess: (data) => {
-        if (url === "/home/user/add") {
-          setName("");
-          setSecondName("");
-          setEmail("");
-        } else {
-          setName(data.name);
-          setSecondName(data.secondName);
-          setEmail(data.email);
-        }
-      },
-    }
-  );
+    enabled: url !== "/home/user/add",
+  });
 
-  const userVerification =
-    name && secondName && email && password && password === confirmPassword;
-
-  const onRegister = () => {
-    if (userVerification) {
-      addUser({
-        id: new Date().getTime(),
-        name: name,
-        secondName: secondName,
-        email: email,
-        password: password,
-      });
-    }
+  const onInputchange = (
+    e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>
+  ) => {
+    setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
   };
 
-  const onEdit = () => {
-    if (userVerification) {
-      editUser({
-        id: new Date().getTime(),
-        name: name,
-        secondName: secondName,
-        email: email,
-        password: password,
-      });
-    }
+  // const userVerification =
+  //   name && secondName && email && password && password === confirmPassword;
+
+  const handleForm = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate(user);
   };
 
   return (
@@ -79,56 +54,48 @@ const FormUserAddEdit = () => {
       {isFetching ? (
         <Loading />
       ) : (
-        <form>
+        <form onSubmit={handleForm}>
           <div className="register__inputs">
             <input
               type="text"
               placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
+              value={user.name}
+              onChange={onInputchange}
+              name="name"
             />
             <input
               type="text"
               placeholder="Second Name"
-              value={secondName}
-              onChange={(e) => setSecondName(e.target.value)}
-              required
+              value={user.secondName}
+              onChange={onInputchange}
+              name="secondName"
             />
             <input
               type="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={user.email}
+              onChange={onInputchange}
+              name="email"
             />
             <input
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
+              value={user.password}
+              onChange={onInputchange}
+              name="password"
             />
           </div>
           <div className="register__buttons">
             <Link to="/home/user">
-              <button
-                disabled={userVerification ? false : true}
-                onClick={url === "/home/user/add" ? onRegister : onEdit}
-                style={{ textAlign: "center" }}
-              >
-                {url === "/home/user/add" ? "Add User" : "Edit User"}
-              </button>
-            </Link>
-            <Link to="/home/user">
               <button>Back to Users</button>
             </Link>
+            <button
+              disabled={false}
+              style={{ textAlign: "center" }}
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </form>
       )}

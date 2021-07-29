@@ -1,12 +1,11 @@
 import { Switch, Route, Link, useRouteMatch, Redirect } from "react-router-dom";
 
-import PostsComponent from "../post/PostsComponent";
-import UsersComponent from "../user/UserComponent";
-import FormUserAddEdit from "../user/FormUserAddEdit";
+import PostsComponent from "features/posts/PostsComponent";
+import UsersComponent from "features/user/UserComponent";
+import FormUserAddEdit from "features/user/FormUserAddEdit";
 
-import { useGlobalContext } from "../../hooks/useGlobalContext";
-
-import { Button } from "../../components/index";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { Button } from "components/index";
 
 const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
@@ -23,7 +22,7 @@ const HomeComponent = () => {
           <nav className="home__sidebar">
             <div className="home__user-container">
               <div className="home__user">
-                {user.name + " " + user.secondName}
+                {`${user.name} ${user.secondName}`}
               </div>
               <Button className="button-delete delete" onClick={signOut}>
                 Sign Out
@@ -43,7 +42,7 @@ const HomeComponent = () => {
             <Switch>
               <Route exact path={path}>
                 <div className="welcome-page">
-                  <h2>Welcome {user.name + " " + user.secondName}</h2>
+                  <h2>Welcome {`${user.name} ${user.secondName}`}</h2>
                 </div>
               </Route>
               <Route exact path={`${path}/user`} component={UsersComponent} />

@@ -1,30 +1,24 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
 import ModalEditAdd from "./ModalEditAdd";
 
-import { fetchPosts } from "../../api/fetchPosts";
-import { PostType } from "../../types/PostsType";
-import { useGlobalContext } from "../../hooks/useGlobalContext";
-
-import { Button, Loading } from "../../components/index";
+import { PostType } from "types/PostsType";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { Button, Loading } from "components/index";
+import { posts } from "api/posts";
 
 const PostsComponent: React.FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
 
   const { showModal, setShowModal } = useGlobalContext();
-
-  const { data, isFetching } = useQuery("posts", fetchPosts);
-
   const queryClient = useQueryClient();
 
-  const { mutate: deletePost } = useMutation(
-    (id: number) => axios.delete(`http://localhost:3000/posts/${id}`),
-    {
-      onSuccess: () => queryClient.invalidateQueries(),
-    }
-  );
+  const { data, isFetching } = useQuery("posts", posts.get);
+
+  const { mutate: deletePost } = useMutation(posts.delete, {
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
 
   return (
     <section className="posts">

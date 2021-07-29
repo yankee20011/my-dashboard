@@ -1,12 +1,11 @@
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Link, useRouteMatch, Redirect } from "react-router-dom";
-import axios from "axios";
 
-import { useGlobalContext } from "../../hooks/useGlobalContext";
-import { fetchUsers } from "../../api/fetchUsers";
-import { UsersType } from "../../types/UsersType";
-
-import { Button, Loading } from "../../components/index";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { fetchUsers } from "api/fetchUsers";
+import { UsersType } from "types/UsersType";
+import { Button, Loading } from "components/index";
+import { users } from "../../api/users";
 
 const UserComponent = () => {
   const { setUserId } = useGlobalContext();
@@ -16,12 +15,9 @@ const UserComponent = () => {
 
   let { url } = useRouteMatch();
 
-  const { mutate: deleteUser } = useMutation(
-    (id: number) => axios.delete(`http://localhost:3000/users/${id}`),
-    {
-      onSuccess: () => queryClient.invalidateQueries(),
-    }
-  );
+  const { mutate: deleteUser } = useMutation(users.delete, {
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
 
   return (
     <>

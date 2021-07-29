@@ -1,11 +1,10 @@
 import React, { Dispatch, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import axios from "axios";
 
-import { useGlobalContext } from "../../hooks/useGlobalContext";
-import { PostType } from "../../types/PostsType";
-
-import { Button } from "../../components/index";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { PostType } from "types/PostsType";
+import { Button } from "components/index";
+import { posts } from "api/posts";
 
 interface Props {
   post: PostType | null;
@@ -13,48 +12,28 @@ interface Props {
 }
 
 const ModalEditAdd = ({ post, setPost }: Props) => {
-  const [form, setForm] = useState<PostType | null>(null);
-  // const [isVisible, setIsVisible] = useState(false);
-
-  // useEffect(() => {
-  //   if (form) {
-  //     setIsVisible(false);
-  //     return;
-  //   }
-  //   setIsVisible(true);
-  //   const timer = setTimeout(() => {
-  //     setIsVisible(false);
-  //   }, 2000);
-  //   return () => clearTimeout(timer);
-  // }, [form]);
+  const [form, setForm] = useState<PostType>(post || {});
+  console.log(post);
 
   const { setShowModal } = useGlobalContext();
-
   const queryClient = useQueryClient();
 
   const { mutate: editPost } = useMutation(
-    (value: PostType) => {
-      return axios.patch(`http://localhost:3000/posts/${post?.id} `, value);
-    },
+    (value: PostType | {}) => posts.patch(value, post?.id!),
     {
       onSuccess: () => queryClient.invalidateQueries("posts"),
     }
   );
 
-  const { mutate: addPost } = useMutation(
-    (newPost: PostType | null) => {
-      return axios.post("http://localhost:3000/posts", newPost);
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries("posts"),
-    }
-  );
+  const { mutate: addPost } = useMutation(posts.post, {
+    onSuccess: () => queryClient.invalidateQueries("posts"),
+  });
 
-  const ifEditPost = () => {
+  const handlePosts = () => {
     console.log(form);
 
     post
-      ? editPost(form!)
+      ? editPost(form)
       : addPost({
           id: new Date().getTime(),
           ...form,
@@ -66,7 +45,8 @@ const ModalEditAdd = ({ post, setPost }: Props) => {
   const onInputchange = (
     e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+    console.log(form);
   };
 
   return (
@@ -80,39 +60,34 @@ const ModalEditAdd = ({ post, setPost }: Props) => {
             <input
               type="text"
               placeholder="Title"
-              value={form?.title}
-              defaultValue={post?.title}
+              value={form.title}
               onChange={onInputchange}
               name="title"
             />
             <input
               type="text"
               placeholder="Category"
-              value={form?.category}
-              defaultValue={post?.category}
+              value={form.category}
               onChange={onInputchange}
               name="category"
             />
             <input
               type="text"
               placeholder="Tags"
-              value={form?.tags}
-              defaultValue={post?.tags}
+              value={form.tags}
               onChange={onInputchange}
               name="tags"
             />
             <input
               type="time"
-              defaultValue={post?.date}
-              value={form?.date}
+              value={form.date}
               onChange={onInputchange}
               name="date"
             />
             <textarea
               id="description"
               placeholder="Some text.."
-              value={form?.description}
-              defaultValue={post?.description}
+              value={form.description}
               onChange={onInputchange}
               name="description"
             ></textarea>
@@ -128,7 +103,7 @@ const ModalEditAdd = ({ post, setPost }: Props) => {
           >
             Close
           </Button>
-          <button onClick={ifEditPost}>{post ? "Edit" : "Add"}</button>
+          <button onClick={handlePosts}>Save</button>
         </div>
       </div>
     </div>
