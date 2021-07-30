@@ -3,8 +3,7 @@ import { useMutation } from "react-query";
 import axios from "axios";
 
 import { UsersType } from "types/UsersType";
-import { Loading } from "components";
-import { Container, useForm, Button, Form, Input } from "ebs-design";
+import { Container, useForm, Button, Form, Input, Loader } from "ebs-design";
 
 const Register = () => {
   const [form] = useForm();
@@ -28,7 +27,7 @@ const Register = () => {
       }}
     >
       {isLoading ? (
-        <Loading />
+        <Loader loading />
       ) : (
         <Form className="form" form={form} onFinish={mutate}>
           <Form.Field name="name" label="Name" rules={[{ required: true }]}>

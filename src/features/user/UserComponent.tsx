@@ -4,8 +4,8 @@ import { Link, useRouteMatch, Redirect } from "react-router-dom";
 import { useGlobalContext } from "hooks/useGlobalContext";
 import { fetchUsers } from "api/fetchUsers";
 import { UsersType } from "types/UsersType";
-import { Button, Loading } from "components/index";
 import { users } from "../../api/users";
+import { Table, Container, Loader, Button } from "ebs-design";
 
 const UserComponent = () => {
   const { setUserId } = useGlobalContext();
@@ -19,55 +19,41 @@ const UserComponent = () => {
     onSuccess: () => queryClient.invalidateQueries(),
   });
 
+  const columns = [
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "name",
+      render: (_: unknown, user: UsersType) =>
+        `${user.name} ${user.secondName}`,
+    },
+    {
+      title: "Editor",
+      render: () => (
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button>Edit</Button>
+          <Button onClick={() => deleteUser}>Delete</Button>
+        </Container>
+      ),
+    },
+  ];
+
   return (
     <>
       {isFetching ? (
-        <Loading />
+        <Loader loading />
       ) : (
-        <div>
-          <table className="user-table">
-            <thead>
-              <tr className="user-table__heading">
-                <th>Email</th>
-                <th>Username</th>
-                <th>
-                  <Link to={`${url}/add`}>
-                    <Button className="button-edit edit">Add User</Button>
-                  </Link>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item: UsersType) => {
-                return (
-                  <tr key={item.id} className="user-table__content">
-                    <td>{item.email}</td>
-                    <td>{item.name + " " + item.secondName}</td>
-                    <td>
-                      <div className="user-table__buttons">
-                        <Link to={`${url}/${item.id}/edit`}>
-                          <Button
-                            className="button-edit edit"
-                            onClick={() => setUserId(item.id)}
-                          >
-                            Edit
-                          </Button>
-                        </Link>
-                        <Button
-                          className="button-delete delete"
-                          onClick={() => deleteUser(item.id)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <>
+          <Table columns={columns} data={data} />
           {data.length === 0 && <Redirect to="/" />}
-        </div>
+        </>
       )}
     </>
   );
