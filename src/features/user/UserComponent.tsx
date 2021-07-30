@@ -31,15 +31,22 @@ const UserComponent = () => {
     },
     {
       title: "Editor",
-      render: () => (
+      render: (_: unknown, user: UsersType) => (
         <Container
           style={{
             display: "flex",
             justifyContent: "space-between",
           }}
         >
-          <Button>Edit</Button>
-          <Button onClick={() => deleteUser}>Delete</Button>
+          <Link to={`${url}/${user.id}/edit`}>
+            <Button
+              className="button-edit edit"
+              onClick={() => setUserId(user.id)}
+            >
+              Edit
+            </Button>
+          </Link>
+          <Button onClick={() => deleteUser(user.id)}>Delete</Button>
         </Container>
       ),
     },
