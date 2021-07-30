@@ -5,45 +5,58 @@ import UsersComponent from "features/user/UserComponent";
 import FormUserAddEdit from "features/user/FormUserAddEdit";
 
 import { useGlobalContext } from "hooks/useGlobalContext";
-import { Button } from "components/index";
+import {
+  Layout,
+  AvatarInline,
+  Button,
+  Sidebar,
+  Icon,
+  Container,
+} from "ebs-design";
 
 const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
   let { path, url } = useRouteMatch();
+  console.log(path);
 
   const signOut = () => {
     setUser(null);
   };
 
   return (
-    <div className="home">
+    <Layout>
       {user ? (
-        <div>
-          <nav className="home__sidebar">
-            <div className="home__user-container">
-              <div className="home__user">
-                {`${user.name} ${user.secondName}`}
-              </div>
-              <Button className="button-delete delete" onClick={signOut}>
+        <>
+          <Layout.Topbar>
+            <Layout.Topbar.LeftSide>
+              <Button onClick={signOut} size="small">
                 Sign Out
               </Button>
-            </div>
-            <ul className="home__link-container">
-              <hr />
-              <li>
-                <Link to={`${url}/user`}>Users</Link>
-              </li>
-              <li>
-                <Link to={`${url}/posts`}>Posts</Link>
-              </li>
-            </ul>
-          </nav>
-          <section className="home__content">
+            </Layout.Topbar.LeftSide>
+            <Layout.Topbar.RightSide>
+              <AvatarInline
+                alt={`${user.name} ${user.secondName}`}
+                status="active"
+                reversed
+              />
+            </Layout.Topbar.RightSide>
+          </Layout.Topbar>
+          <Sidebar>
+            <Sidebar.TopMenu>
+              <Link to={`${url}/user`}>
+                <Sidebar.Item prefix={<Icon type="users" />} text="Users" />
+              </Link>
+              <Link to={`${url}/posts`}>
+                <Sidebar.Item prefix={<Icon type="archive" />} text="Posts" />
+              </Link>
+            </Sidebar.TopMenu>
+          </Sidebar>
+          <Layout.Content>
             <Switch>
               <Route exact path={path}>
-                <div className="welcome-page">
+                <Container style={{ textAlign: "center" }}>
                   <h2>Welcome {`${user.name} ${user.secondName}`}</h2>
-                </div>
+                </Container>
               </Route>
               <Route exact path={`${path}/user`} component={UsersComponent} />
               <Route exact path={`${path}/posts`} component={PostsComponent} />
@@ -58,12 +71,12 @@ const HomeComponent = () => {
                 component={FormUserAddEdit}
               />
             </Switch>
-          </section>
-        </div>
+          </Layout.Content>
+        </>
       ) : (
         <Redirect to="/" />
       )}
-    </div>
+    </Layout>
   );
 };
 
