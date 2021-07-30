@@ -1,94 +1,103 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useQuery } from "react-query";
 
 import { fetchUsers } from "api/fetchUsers";
 import { UsersType } from "types/UsersType";
-
 import { useGlobalContext } from "hooks/useGlobalContext";
 import { ToggleType } from "types/ToggleType";
 
-const Login = () => {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-  const [isValidUser, setIsValidUser] = useState<ToggleType>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
+import { Button, Container, Form, Input, useForm } from "ebs-design";
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-  };
+interface Login {
+  email: string;
+  password: string;
+}
+
+const LoginComponent = () => {
+  const [isValidUser, setIsValidUser] = useState<ToggleType>(null);
+  const [isUserError, setIsUserError] = useState(false);
+  const [isPasswordError, setIsPasswordError] = useState(false);
+
+  const [form] = useForm();
 
   const { setUser } = useGlobalContext();
 
   const { data } = useQuery("users", fetchUsers);
 
-  const userLog = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
+  const userLog = (values: Login) => {
     const findUser = data.find(
-      (users: UsersType) => users.email === form.email
+      (users: UsersType) => users.email === values.email
     );
 
     if (findUser) {
       if (
-        findUser.email === form.email &&
-        findUser.password === form.password
+        findUser.email === values.email &&
+        findUser.password === values.password
       ) {
         setUser(findUser);
         setIsValidUser(true);
-      } else if (findUser.password !== form.password) {
-        setIsPassword(true);
+      } else if (findUser.password !== values.password) {
+        setIsPasswordError(true);
         setTimeout(() => {
-          setIsPassword(false);
+          setIsPasswordError(false);
         }, 1500);
       }
     } else if (findUser === undefined) {
-      setIsVisible(true);
+      setIsUserError(true);
       setTimeout(() => {
-        setIsVisible(false);
+        setIsUserError(false);
       }, 1500);
     }
   };
 
   return (
-    <section className="login">
-      <form onSubmit={userLog}>
-        <div className="login__inputs">
-          <input
-            type="text"
-            placeholder="Email"
-            value={form.email}
-            onChange={onInputChange}
-            name="email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={onInputChange}
-            name="password"
-          />
-        </div>
-        <div className="login__email-error">
-          {isVisible && <h4>This user doesn't exist</h4>}
-          {isPassword && <h4>Incorect password</h4>}
-        </div>
-        <div className="login__buttons">
+    <Container
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        height: "100vh",
+        marginTop: "-1rem",
+      }}
+    >
+      <Form form={form} onFinish={userLog} className="form">
+        <h3 style={{ marginBottom: "1rem" }}>Login</h3>
+        <Form.Field name="email" label="Email" rules={[{ required: true }]}>
+          <Input type="email" size="medium" />
+        </Form.Field>
+        <Form.Field
+          name="password"
+          label="Password"
+          rules={[{ required: true }]}
+        >
+          <Input type="password" size="medium" />
+        </Form.Field>
+
+        <Container style={{ margin: "1rem 0 1rem 0" }}>
+          {isUserError && <h4>This user doesn't exist</h4>}
+          {isPasswordError && <h4>Incorect password</h4>}
+        </Container>
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0",
+          }}
+        >
           {isValidUser ? (
             <Redirect to="/home" />
           ) : (
-            <button type="submit">Sign in</button>
+            <Button submit>Sign in</Button>
           )}
           <Link to="/register">
-            <button>Register</button>
+            <Button>Register</Button>
           </Link>
-        </div>
-      </form>
-    </section>
+        </Container>
+      </Form>
+    </Container>
   );
 };
 
-export default Login;
+export default LoginComponent;

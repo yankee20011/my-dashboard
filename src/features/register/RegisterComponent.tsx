@@ -1,92 +1,73 @@
-import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios from "axios";
 
 import { UsersType } from "types/UsersType";
 import { Loading } from "components";
+import { Container, useForm, Button, Form, Input } from "ebs-design";
 
 const Register = () => {
-  const [form, setForm] = useState({
-    name: "",
-    secondName: "",
-    email: "",
-    password: "",
-  });
-
+  const [form] = useForm();
   const history = useHistory();
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-  };
+  console.log(form.getFieldValue);
 
   const { mutate, isLoading } = useMutation(
-    (newUser: UsersType) => axios.post("http://localhost:3000/users ", newUser),
+    (values: UsersType) => axios.post("http://localhost:3000/users ", values),
     { onSuccess: () => history.push("/") }
   );
 
-  const registerVerification =
-    form.name && form.secondName && form.email && form.password;
-
-  const onRegister = () => {
-    if (registerVerification) {
-      mutate({
-        id: new Date().getTime(),
-        ...form,
-      });
-    }
-  };
-
   return (
-    <section className="register">
+    <Container
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        height: "100vh",
+        marginTop: "-1rem",
+      }}
+    >
       {isLoading ? (
         <Loading />
       ) : (
-        <form onSubmit={onRegister}>
-          <div className="register__inputs">
-            <input
-              type="text"
-              placeholder="Name"
-              value={form.name}
-              onChange={onInputChange}
-              name="name"
-            />
-            <input
-              type="text"
-              placeholder="Second Name"
-              value={form.secondName}
-              onChange={onInputChange}
-              name="secondName"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={onInputChange}
-              name="email"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={onInputChange}
-              name="password"
-            />
-          </div>
-          <div className="register__buttons">
-            <button
-              disabled={registerVerification ? false : true}
-              type="submit"
-            >
-              Register
-            </button>
+        <Form className="form" form={form} onFinish={mutate}>
+          <Form.Field name="name" label="Name" rules={[{ required: true }]}>
+            <Input type="text" />
+          </Form.Field>
+          <Form.Field
+            name="secondName"
+            label="Second Name"
+            rules={[{ required: true }]}
+          >
+            <Input type="text" />
+          </Form.Field>
+          <Form.Field name="email" label="Email" rules={[{ required: true }]}>
+            <Input type="email" />
+          </Form.Field>
+          <Form.Field
+            name="password"
+            label="Password"
+            rules={[{ required: true }]}
+          >
+            <Input type="text" />
+          </Form.Field>
+          <Container
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "0",
+            }}
+          >
             <Link to="/">
-              <button>Back to Login</button>
+              <Button>Back to Login</Button>
             </Link>
-          </div>
-        </form>
+            <Button submit disabled={false}>
+              Register
+            </Button>
+          </Container>
+        </Form>
       )}
-    </section>
+    </Container>
   );
 };
 

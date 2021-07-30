@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./styles/App.css";
+import "./styles/variables.scss";
 import Login from "./features/login/LoginComponent";
 import Register from "./features/register/RegisterComponent";
 import Home from "./features/home/HomeComponent";
