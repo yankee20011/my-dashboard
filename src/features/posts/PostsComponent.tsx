@@ -1,38 +1,32 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
-import ModalEditAdd from "./ModalEditAdd";
+import ModalEditAdd from "./PostsModal";
 
 import { PostType } from "types/PostsType";
-import { useGlobalContext } from "hooks/useGlobalContext";
-import { Button, Loading } from "components/index";
 import { posts } from "api/posts";
+import { Loader, Button, Container, Modal } from "ebs-design";
 
 const PostsComponent: React.FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
-
-  const { showModal, setShowModal } = useGlobalContext();
+  const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
-
   const { data, isFetching } = useQuery("posts", posts.get);
+
+  const onToggleHandler = (): void => setOpen((s) => !s);
 
   const { mutate: deletePost } = useMutation(posts.delete, {
     onSuccess: () => queryClient.invalidateQueries(),
   });
 
   return (
-    <section className="posts">
+    <Container>
       {isFetching ? (
-        <Loading />
+        <Loader loading />
       ) : (
         <>
           <div className="posts__add-post">
-            <Button
-              className="button-edit edit"
-              onClick={() => {
-                setShowModal(true);
-              }}
-            >
+            <Button className="button-edit edit" onClick={onToggleHandler}>
               Add New Post
             </Button>
           </div>
@@ -59,7 +53,7 @@ const PostsComponent: React.FC = () => {
                           <Button
                             className="button-edit edit"
                             onClick={() => {
-                              setShowModal(true);
+                              onToggleHandler();
                               setPost(item);
                             }}
                           >
@@ -81,8 +75,14 @@ const PostsComponent: React.FC = () => {
         </>
       )}
 
-      {showModal && <ModalEditAdd post={post} setPost={setPost} />}
-    </section>
+      <Modal open={open} onClose={onToggleHandler}>
+        <ModalEditAdd
+          post={post}
+          setPost={setPost}
+          onToggleHandler={onToggleHandler}
+        />
+      </Modal>
+    </Container>
   );
 };
 

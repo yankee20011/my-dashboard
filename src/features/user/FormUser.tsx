@@ -23,6 +23,7 @@ const FormUser = () => {
   const { isFetching, data } = useQuery("selectUser", () =>
     users.getUser(userId)
   );
+  console.log(data);
 
   const handleForm = (values: UsersType) => {
     mutate(values);
@@ -41,23 +42,38 @@ const FormUser = () => {
         <Loader loading />
       ) : (
         <Form className="form" form={form} onFinish={handleForm}>
-          <Form.Field name="name" label="Name" rules={[{ required: true }]}>
+          <h3 style={{ marginBottom: "1rem" }}>
+            {url === "/home/user/add" ? "Add user" : "Edit user"}
+          </h3>
+          <Form.Field
+            name="name"
+            label="Name"
+            rules={[{ required: true }]}
+            initialValue={url !== "/home/user/add" ? data.name : null}
+          >
             <Input type="text" />
           </Form.Field>
           <Form.Field
             name="secondName"
             label="Second Name"
             rules={[{ required: true }]}
+            initialValue={url !== "/home/user/add" ? data.secondName : null}
           >
             <Input type="text" />
           </Form.Field>
-          <Form.Field name="email" label="Email" rules={[{ required: true }]}>
+          <Form.Field
+            name="email"
+            label="Email"
+            rules={[{ required: true }]}
+            initialValue={url !== "/home/user/add" ? data.email : null}
+          >
             <Input type="email" />
           </Form.Field>
           <Form.Field
             name="password"
             label="Password"
             rules={[{ required: true }]}
+            initialValue={url !== "/home/user/add" ? data.password : null}
           >
             <Input type="password" />
           </Form.Field>

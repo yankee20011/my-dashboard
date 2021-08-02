@@ -25,14 +25,13 @@ const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
   let { path, url } = useRouteMatch();
   let { pathname } = useLocation();
-  console.log(pathname);
 
   const signOut = () => {
     setUser(null);
   };
 
   return (
-    <Layout>
+    <Layout className="content">
       {user ? (
         <>
           <Layout.Topbar>
@@ -67,7 +66,7 @@ const HomeComponent = () => {
               </Link>
             </Sidebar.TopMenu>
           </Sidebar>
-          <Layout.Content>
+          <Layout.Content className="content">
             <Switch>
               <Route exact path={path}>
                 <Container style={{ textAlign: "center" }}>
