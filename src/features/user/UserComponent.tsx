@@ -31,18 +31,18 @@ const UserComponent = () => {
     },
     {
       title: (
-        <Container
+        <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <Container>Editor</Container>{" "}
+          <span>Editor</span>
           <Link to={`${url}/add`}>
             <Button>Add</Button>
           </Link>
-        </Container>
+        </div>
       ),
       render: (_: unknown, user: UsersType) => (
         <Container
@@ -71,7 +71,13 @@ const UserComponent = () => {
         <Loader loading />
       ) : (
         <>
-          <Table columns={columns} data={data} />
+          <Table
+            columns={columns}
+            data={data}
+            style={{
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            }}
+          />
           {data.length === 0 && <Redirect to="/" />}
         </>
       )}

@@ -29,6 +29,7 @@ const Register = () => {
         <Loader loading />
       ) : (
         <Form className="form" form={form} onFinish={mutate}>
+          <h3 style={{ marginBottom: "1rem" }}>Register</h3>
           <Form.Field name="name" label="Name" rules={[{ required: true }]}>
             <Input type="text" />
           </Form.Field>

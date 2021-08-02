@@ -2,19 +2,27 @@
   "posts": [
     {
       "id": 1627482229865,
-      "title": "3",
-      "category": "sas",
+      "title": "2",
+      "category": "sasa",
       "tags": "sasa",
-      "date": "01:01",
+      "date": "21/August/2 16",
       "description": "sasa"
     },
     {
-      "id": 1627564061409,
+      "title": "sas",
       "category": "sasa",
-      "date": "02:02",
-      "description": "3232",
       "tags": "sasa",
-      "title": "sasa"
+      "date": "21/August/2 16",
+      "description": "sasa",
+      "id": 1627482229866
+    },
+    {
+      "title": "2121",
+      "category": "2121",
+      "tags": "sasa,sasa,sasa",
+      "date": "21/August/4 00",
+      "description": "sasa",
+      "id": 1627482229867
     }
   ],
   "users": [
@@ -38,6 +46,13 @@
       "email": "sasa@sasasa",
       "password": "sasas",
       "id": 3
+    },
+    {
+      "name": "sasa",
+      "secondName": "sasa",
+      "email": "sasa@sasa",
+      "password": "123",
+      "id": 4
     }
   ]
 }
