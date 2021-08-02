@@ -1,8 +1,15 @@
-import { Switch, Route, Link, useRouteMatch, Redirect } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useLocation,
+  Redirect,
+} from "react-router-dom";
 
 import PostsComponent from "features/posts/PostsComponent";
 import UsersComponent from "features/user/UserComponent";
-import FormUserAddEdit from "features/user/FormUserAddEdit";
+import FormUserAddEdit from "features/user/FormUser";
 
 import { useGlobalContext } from "hooks/useGlobalContext";
 import {
@@ -17,7 +24,8 @@ import {
 const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
   let { path, url } = useRouteMatch();
-  console.log(path);
+  let { pathname } = useLocation();
+  console.log(pathname);
 
   const signOut = () => {
     setUser(null);
@@ -44,10 +52,18 @@ const HomeComponent = () => {
           <Sidebar>
             <Sidebar.TopMenu>
               <Link to={`${url}/user`}>
-                <Sidebar.Item prefix={<Icon type="users" />} text="Users" />
+                <Sidebar.Item
+                  prefix={<Icon type="users" />}
+                  text="Users"
+                  active={pathname.startsWith("/home/user")}
+                />
               </Link>
               <Link to={`${url}/posts`}>
-                <Sidebar.Item prefix={<Icon type="archive" />} text="Posts" />
+                <Sidebar.Item
+                  prefix={<Icon type="archive" />}
+                  text="Posts"
+                  active={pathname.startsWith("/home/post")}
+                />
               </Link>
             </Sidebar.TopMenu>
           </Sidebar>

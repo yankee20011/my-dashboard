@@ -19,53 +19,25 @@
   ],
   "users": [
     {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "123",
-      "id": 1627554344429
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@dsds.r",
-      "password": "sasa",
-      "id": 1627554344430
+      "name": "Iulian",
+      "secondName": "Banilean",
+      "email": "iani@iani",
+      "password": "iani",
+      "id": 1
     },
     {
       "name": "sasa",
       "secondName": "sasa",
       "email": "sasa@sasa",
       "password": "sasa",
-      "id": 1627554344431
+      "id": 2
     },
     {
-      "name": "122",
-      "secondName": "123",
-      "email": "123@123",
-      "password": "123",
-      "id": 1627554344432
-    },
-    {
-      "id": 1627632177405,
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "sasa"
-    },
-    {
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean",
-      "password": "123",
-      "id": 1627632177411
-    },
-    {
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "123",
-      "id": 1627632177412
+      "name": "sasasa",
+      "secondName": "sasasa",
+      "email": "sasa@sasasa",
+      "password": "sasas",
+      "id": 3
     }
   ]
 }
