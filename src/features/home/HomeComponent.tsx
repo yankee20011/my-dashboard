@@ -9,7 +9,7 @@ import {
 
 import PostsComponent from "features/posts/PostsComponent";
 import UsersComponent from "features/user/UserComponent";
-import FormUserAddEdit from "features/user/FormUserAddEdit";
+import FormUserAddEdit from "features/user/FormUser";
 
 import { useGlobalContext } from "hooks/useGlobalContext";
 import {

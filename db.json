@@ -21,9 +21,23 @@
     {
       "name": "Iulian",
       "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "123",
+      "email": "iani@iani",
+      "password": "iani",
       "id": 1
+    },
+    {
+      "name": "sasa",
+      "secondName": "sasa",
+      "email": "sasa@sasa",
+      "password": "sasa",
+      "id": 2
+    },
+    {
+      "name": "sasasa",
+      "secondName": "sasasa",
+      "email": "sasa@sasasa",
+      "password": "sasas",
+      "id": 3
     }
   ]
 }

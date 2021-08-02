@@ -30,7 +30,20 @@ const UserComponent = () => {
         `${user.name} ${user.secondName}`,
     },
     {
-      title: "Editor",
+      title: (
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Container>Editor</Container>{" "}
+          <Link to={`${url}/add`}>
+            <Button>Add</Button>
+          </Link>
+        </Container>
+      ),
       render: (_: unknown, user: UsersType) => (
         <Container
           style={{

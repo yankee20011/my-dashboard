@@ -1,18 +1,32 @@
-import { Link, useHistory } from "react-router-dom";
-import { useMutation } from "react-query";
-import axios from "axios";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { users } from "api/users";
 
 import { UsersType } from "types/UsersType";
-import { Container, useForm, Button, Form, Input, Loader } from "ebs-design";
+import { useGlobalContext } from "hooks/useGlobalContext";
+import { Container, Form, Input, Loader, useForm, Button } from "ebs-design";
 
-const Register = () => {
+const FormUser = () => {
   const [form] = useForm();
-  const history = useHistory();
 
-  const { mutate, isLoading } = useMutation(
-    (values: UsersType) => axios.post("http://localhost:3000/users ", values),
-    { onSuccess: () => history.push("/") }
+  const history = useHistory();
+  const { url } = useRouteMatch();
+  const { userId } = useGlobalContext();
+
+  const mutateFunc = async (value: UsersType | {}) =>
+    url === "/home/user/add" ? users.post(value) : users.patch(value, data.id);
+
+  const { mutate } = useMutation((value: UsersType | {}) => mutateFunc(value), {
+    onSuccess: () => history.push("/home/user"),
+  });
+
+  const { isFetching, data } = useQuery("selectUser", () =>
+    users.getUser(userId)
   );
+
+  const handleForm = (values: UsersType) => {
+    mutate(values);
+  };
 
   return (
     <Container
@@ -21,14 +35,12 @@ const Register = () => {
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        height: "100vh",
-        marginTop: "-1rem",
       }}
     >
-      {isLoading ? (
+      {isFetching ? (
         <Loader loading />
       ) : (
-        <Form className="form" form={form} onFinish={mutate}>
+        <Form className="form" form={form} onFinish={handleForm}>
           <Form.Field name="name" label="Name" rules={[{ required: true }]}>
             <Input type="text" />
           </Form.Field>
@@ -56,10 +68,10 @@ const Register = () => {
               padding: "0",
             }}
           >
-            <Link to="/">
-              <Button>Back to Login</Button>
+            <Link to="/home/user">
+              <Button>Back to Users</Button>
             </Link>
-            <Button submit>Register</Button>
+            <Button submit>Save</Button>
           </Container>
         </Form>
       )}
@@ -67,4 +79,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default FormUser;
