@@ -5,7 +5,7 @@ import ModalEditAdd from "./PostsModal";
 
 import { PostType } from "types/PostsType";
 import { posts } from "api/posts";
-import { Loader, Button, Container, Modal } from "ebs-design";
+import { Loader, Button, Container, Modal, Card } from "ebs-design";
 
 const PostsComponent: React.FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
@@ -24,13 +24,13 @@ const PostsComponent: React.FC = () => {
       {isFetching ? (
         <Loader loading />
       ) : (
-        <>
-          <div className="posts__add-post">
+        <Card>
+          <Card.Header bordered>
             <Button className="button-edit edit" onClick={onToggleHandler}>
               Add New Post
             </Button>
-          </div>
-          <div className="posts__container">
+          </Card.Header>
+          <Card.Body className="posts-body">
             {data.length
               ? data?.map((item: PostType) => {
                   const newTags = item?.tags?.split(",");
@@ -71,8 +71,8 @@ const PostsComponent: React.FC = () => {
                   );
                 })
               : null}
-          </div>
-        </>
+          </Card.Body>
+        </Card>
       )}
 
       <Modal open={open} onClose={onToggleHandler}>
