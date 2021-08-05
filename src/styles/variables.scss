@@ -1,3 +1,5 @@
+@import "ebs-design/dist/styles/index.scss";
+
 .form {
   background: #ffffff;
   width: 300px;
@@ -55,11 +57,6 @@
       border-radius: 3px;
     }
   }
-  &__buttons {
-    display: flex;
-    justify-content: flex-end;
-    grid-gap: 20px;
-  }
 }
 
 .modal {
@@ -115,5 +112,3 @@
     justify-content: space-between;
   }
 }
-
-@import "ebs-design/dist/styles/index.scss";

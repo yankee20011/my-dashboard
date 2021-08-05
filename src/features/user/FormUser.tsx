@@ -1,31 +1,40 @@
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import { users } from "api/users";
+import {
+  Container,
+  Form,
+  Input,
+  Loader,
+  useForm,
+  Button,
+  Space,
+} from "ebs-design";
 
-import { UsersType } from "types/UsersType";
+import { users } from "api/users";
 import { useGlobalContext } from "hooks/useGlobalContext";
-import { Container, Form, Input, Loader, useForm, Button } from "ebs-design";
+import { UsersType } from "types/UsersType";
 
 const FormUser = () => {
   const [form] = useForm();
 
   const history = useHistory();
-  const { url } = useRouteMatch();
   const { userId } = useGlobalContext();
-
-  const mutateFunc = async (value: UsersType | {}) =>
-    url === "/home/user/add" ? users.post(value) : users.patch(value, data.id);
-
-  const { mutate } = useMutation((value: UsersType | {}) => mutateFunc(value), {
-    onSuccess: () => history.push("/home/user"),
-  });
+  console.log(userId);
 
   const { isFetching, data } = useQuery("selectUser", () =>
     users.getUser(userId)
   );
-  console.log(data);
+
+  const mutateFunc = async (value: UsersType) =>
+    userId ? users.patch(value, data.id) : users.post(value);
+
+  const { mutate } = useMutation((value: UsersType) => mutateFunc(value), {
+    onSuccess: () => history.push("/home/user"),
+  });
 
   const handleForm = (values: UsersType) => {
+    console.log(values);
+
     mutate(values);
   };
 
@@ -43,13 +52,13 @@ const FormUser = () => {
       ) : (
         <Form className="form" form={form} onFinish={handleForm}>
           <h3 style={{ marginBottom: "1rem" }}>
-            {url === "/home/user/add" ? "Add user" : "Edit user"}
+            {userId ? "Edit user" : "Add user"}
           </h3>
           <Form.Field
             name="name"
             label="Name"
             rules={[{ required: true }]}
-            initialValue={url !== "/home/user/add" ? data.name : null}
+            initialValue={userId ? data.name : null}
           >
             <Input type="text" />
           </Form.Field>
@@ -57,7 +66,7 @@ const FormUser = () => {
             name="secondName"
             label="Second Name"
             rules={[{ required: true }]}
-            initialValue={url !== "/home/user/add" ? data.secondName : null}
+            initialValue={userId ? data.secondName : null}
           >
             <Input type="text" />
           </Form.Field>
@@ -65,7 +74,7 @@ const FormUser = () => {
             name="email"
             label="Email"
             rules={[{ required: true }]}
-            initialValue={url !== "/home/user/add" ? data.email : null}
+            initialValue={userId ? data.email : null}
           >
             <Input type="email" />
           </Form.Field>
@@ -73,22 +82,16 @@ const FormUser = () => {
             name="password"
             label="Password"
             rules={[{ required: true }]}
-            initialValue={url !== "/home/user/add" ? data.password : null}
+            initialValue={userId ? data.password : null}
           >
             <Input type="password" />
           </Form.Field>
-          <Container
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "0",
-            }}
-          >
+          <Space justify="space-between">
             <Link to="/home/user">
               <Button>Back to Users</Button>
             </Link>
             <Button submit>Save</Button>
-          </Container>
+          </Space>
         </Form>
       )}
     </Container>

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useQuery } from "react-query";
+import { Button, Container, Form, Input, Space, useForm } from "ebs-design";
 
-import { fetchUsers } from "api/fetchUsers";
-import { UsersType } from "types/UsersType";
 import { useGlobalContext } from "hooks/useGlobalContext";
+import { UsersType } from "types/UsersType";
 import { ToggleType } from "types/ToggleType";
-
-import { Button, Container, Form, Input, useForm } from "ebs-design";
+import { fetchUsers } from "api/fetchUsers";
 
 interface Login {
   email: string;
@@ -16,8 +15,6 @@ interface Login {
 
 const LoginComponent = () => {
   const [isValidUser, setIsValidUser] = useState<ToggleType>(null);
-  const [isUserError, setIsUserError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
 
   const [form] = useForm();
 
@@ -37,17 +34,7 @@ const LoginComponent = () => {
       ) {
         setUser(findUser);
         setIsValidUser(true);
-      } else if (findUser.password !== values.password) {
-        setIsPasswordError(true);
-        setTimeout(() => {
-          setIsPasswordError(false);
-        }, 1500);
       }
-    } else if (findUser === undefined) {
-      setIsUserError(true);
-      setTimeout(() => {
-        setIsUserError(false);
-      }, 1500);
     }
   };
 
@@ -74,18 +61,7 @@ const LoginComponent = () => {
         >
           <Input type="password" size="medium" />
         </Form.Field>
-
-        <Container style={{ margin: "1rem 0 1rem 0" }}>
-          {isUserError && <h4>This user doesn't exist</h4>}
-          {isPasswordError && <h4>Incorect password</h4>}
-        </Container>
-        <Container
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "0",
-          }}
-        >
+        <Space justify="space-between">
           {isValidUser ? (
             <Redirect to="/home" />
           ) : (
@@ -94,7 +70,7 @@ const LoginComponent = () => {
           <Link to="/register">
             <Button>Register</Button>
           </Link>
-        </Container>
+        </Space>
       </Form>
     </Container>
   );

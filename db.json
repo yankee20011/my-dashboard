@@ -36,80 +36,17 @@
   "users": [
     {
       "name": "sasa",
-      "secondName": "sashok",
-      "email": "sasa@sasa",
-      "password": "123",
-      "id": 4
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "123",
-      "id": 5
-    },
-    {
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "123",
-      "id": 6
-    },
-    {
-      "name": "sasa",
       "secondName": "sasa",
       "email": "sasa@sasa",
       "password": "sasa",
-      "id": 7
+      "id": 2
     },
     {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
+      "name": "123",
+      "secondName": "123",
+      "email": "123@123",
       "password": "123",
-      "id": 8
-    },
-    {
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "123",
-      "id": 9
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "sasa",
-      "id": 10
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "123",
-      "id": 5
-    },
-    {
-      "name": "Iulian",
-      "secondName": "Banilean",
-      "email": "ianibanilean@gmail.com",
-      "password": "123",
-      "id": 6
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "sasa",
-      "id": 7
-    },
-    {
-      "name": "sasa",
-      "secondName": "sasa",
-      "email": "sasa@sasa",
-      "password": "123",
-      "id": 11
+      "id": 3
     }
   ]
 }

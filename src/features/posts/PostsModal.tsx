@@ -1,8 +1,5 @@
 import { Dispatch } from "react";
 import { useMutation, useQueryClient } from "react-query";
-
-import { PostType } from "types/PostsType";
-import { posts } from "api/posts";
 import {
   Button,
   Form,
@@ -12,7 +9,11 @@ import {
   Container,
   useForm,
   DatePicker,
+  Space,
 } from "ebs-design";
+
+import { PostType } from "types/PostsType";
+import { posts } from "api/posts";
 
 interface Props {
   post: PostType | null;
@@ -26,7 +27,7 @@ const PostsModal = ({ post, setPost, onToggleHandler }: Props) => {
   const queryClient = useQueryClient();
 
   const { mutate: editPost } = useMutation(
-    (value: PostType | {}) => posts.patch(value, post?.id!),
+    (value: PostType) => posts.patch(value, post?.id!),
     {
       onSuccess: () => queryClient.invalidateQueries("posts"),
     }
@@ -90,7 +91,7 @@ const PostsModal = ({ post, setPost, onToggleHandler }: Props) => {
           <Textarea className="textarea" />
         </Form.Field>
 
-        <Container style={{ display: "flex", justifyContent: "space-between" }}>
+        <Space justify="space-between">
           <Button
             className="button-delete delete"
             onClick={() => {
@@ -101,7 +102,7 @@ const PostsModal = ({ post, setPost, onToggleHandler }: Props) => {
             Close
           </Button>
           <Button submit>Save</Button>
-        </Container>
+        </Space>
       </Form>
     </Modal.Content>
   );

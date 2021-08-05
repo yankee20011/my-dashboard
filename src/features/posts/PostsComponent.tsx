@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient, useMutation } from "react-query";
+import { Loader, Button, Container, Modal, Card, Space } from "ebs-design";
+
+import { posts } from "api/posts";
+import { PostType } from "types/PostsType";
 
 import ModalEditAdd from "./PostsModal";
-
-import { PostType } from "types/PostsType";
-import { posts } from "api/posts";
-import { Loader, Button, Container, Modal, Card } from "ebs-design";
 
 const PostsComponent: React.FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
@@ -16,7 +16,7 @@ const PostsComponent: React.FC = () => {
   const onToggleHandler = (): void => setOpen((s) => !s);
 
   const { mutate: deletePost } = useMutation(posts.delete, {
-    onSuccess: () => queryClient.invalidateQueries(),
+    onSuccess: () => queryClient.invalidateQueries("posts"),
   });
 
   return (
@@ -48,25 +48,23 @@ const PostsComponent: React.FC = () => {
                         ))}
                       </div>
                       <p className="posts__description">{item.description}</p>
-                      <div className="posts__buttons">
-                        <div>
-                          <Button
-                            className="button-edit edit"
-                            onClick={() => {
-                              onToggleHandler();
-                              setPost(item);
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </div>
+                      <Space justify="end">
+                        <Button
+                          className="button-edit edit"
+                          onClick={() => {
+                            onToggleHandler();
+                            setPost(item);
+                          }}
+                        >
+                          Edit
+                        </Button>
                         <Button
                           className="button-delete delete"
                           onClick={() => deletePost(item.id!)}
                         >
                           Delete
                         </Button>
-                      </div>
+                      </Space>
                     </div>
                   );
                 })
