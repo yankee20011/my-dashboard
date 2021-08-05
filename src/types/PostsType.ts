@@ -2,7 +2,7 @@ export interface PostType {
   id?: number;
   title?: string;
   description?: string;
-  date?: string | number | readonly string[] | undefined;
+  date?: string | number | string[];
   tags?: string;
   category?: string;
 }

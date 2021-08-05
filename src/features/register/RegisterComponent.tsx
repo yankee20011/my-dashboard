@@ -1,9 +1,17 @@
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios from "axios";
+import {
+  Container,
+  useForm,
+  Button,
+  Form,
+  Input,
+  Loader,
+  Space,
+} from "ebs-design";
 
 import { UsersType } from "types/UsersType";
-import { Container, useForm, Button, Form, Input, Loader } from "ebs-design";
 
 const Register = () => {
   const [form] = useForm();
@@ -50,18 +58,12 @@ const Register = () => {
           >
             <Input type="password" />
           </Form.Field>
-          <Container
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "0",
-            }}
-          >
+          <Space justify="space-between">
             <Link to="/">
               <Button>Back to Login</Button>
             </Link>
             <Button submit>Register</Button>
-          </Container>
+          </Space>
         </Form>
       )}
     </Container>

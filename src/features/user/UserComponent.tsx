@@ -1,11 +1,11 @@
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Link, useRouteMatch, Redirect } from "react-router-dom";
+import { Table, Container, Loader, Button } from "ebs-design";
 
 import { useGlobalContext } from "hooks/useGlobalContext";
 import { fetchUsers } from "api/fetchUsers";
+import { users } from "api/users";
 import { UsersType } from "types/UsersType";
-import { users } from "../../api/users";
-import { Table, Container, Loader, Button } from "ebs-design";
 
 const UserComponent = () => {
   const { setUserId } = useGlobalContext();
@@ -16,7 +16,7 @@ const UserComponent = () => {
   let { url } = useRouteMatch();
 
   const { mutate: deleteUser } = useMutation(users.delete, {
-    onSuccess: () => queryClient.invalidateQueries(),
+    onSuccess: () => queryClient.invalidateQueries("users"),
   });
 
   const columns = [
@@ -40,7 +40,7 @@ const UserComponent = () => {
         >
           <span>Editor</span>
           <Link to={`${url}/add`}>
-            <Button>Add</Button>
+            <Button onClick={() => setUserId(null)}>Add</Button>
           </Link>
         </div>
       ),

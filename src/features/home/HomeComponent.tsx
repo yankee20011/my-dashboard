@@ -6,12 +6,6 @@ import {
   useLocation,
   Redirect,
 } from "react-router-dom";
-
-import PostsComponent from "features/posts/PostsComponent";
-import UsersComponent from "features/user/UserComponent";
-import FormUserAddEdit from "features/user/FormUser";
-
-import { useGlobalContext } from "hooks/useGlobalContext";
 import {
   Layout,
   AvatarInline,
@@ -20,6 +14,12 @@ import {
   Icon,
   Container,
 } from "ebs-design";
+
+import { useGlobalContext } from "hooks/useGlobalContext";
+
+import PostsComponent from "features/posts/PostsComponent";
+import UsersComponent from "features/user/UserComponent";
+import FormUserAddEdit from "features/user/FormUser";
 
 const HomeComponent = () => {
   const { setUser, user, userId } = useGlobalContext();
